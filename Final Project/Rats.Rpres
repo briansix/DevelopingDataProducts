@@ -1,0 +1,50 @@
+New York Rats
+========================================================
+author: Brian Burnham   
+date: 3/9/2017
+autosize: true
+
+The Data Source
+========================================================
+
+New York City publishes a swath of data via Socrata. 
+Visit the site here, to see the vareity of data available: <http://opendata.cityofnewyork.us>.
+
+Data shared via the Socrata platform can be browsed and visualized online, and provides data feeds in several formats. 
+
+The Data Set
+========================================================
+
+The data set selected reports results from rat inspections. Information on the data set is available here: <https://data.cityofnewyork.us/Health/Rodent-Inspection/p937-wjvj>. 
+
+The data set itself is accessible from the link above, and Socrata allows you to customize the source. 
+
+- Upon examination, I determied that I wanted to narrow the time range. Older year's data was not consistent, and cutting it off at 2010 gave me 7 years of data.
+- The most novel item in the data I found were recorded rat sightings. I filtered the result to "Active Rat Signs"
+- The filtered data set is accessible via this link: <https://data.cityofnewyork.us/Health/Rats/amyk-xiv9>
+- The data in CSV format is accessible here: <https://data.cityofnewyork.us/api/views/amyk-xiv9/rows.csv?accessType=DOWNLOAD>
+
+
+
+The Rats
+========================================================
+
+Here is a quick histogram of the rat reports. 
+```{r, echo=FALSE}
+rats <- read.csv("https://data.cityofnewyork.us/api/views/amyk-xiv9/rows.csv?accessType=DOWNLOAD", header = TRUE) 
+rats$date <- as.Date(rats$INSPECTION_DATE, format = "%m/%d/%Y")
+rats$year <- as.numeric(format(rats$date, format = "%Y"))
+hist(rats$date, breaks = 6)
+```
+
+This shows you a quick year-over-year trend of the rat reports. 
+
+The Map
+========================================================
+
+To interact with the application itself, visit it at: <https://brian6.shinyapps.io/nyc_rats/>
+
+To review the code, visit this GitHub repo: <https://github.com/briansix/DevelopingDataProducts/tree/master/Final%20Project>
+
+![Map from apps](map.jpg)
+
